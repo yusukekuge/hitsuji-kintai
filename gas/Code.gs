@@ -157,12 +157,18 @@ function doPost(e) {
 }
 
 function doGet(e) {
-  // パラメータ付きGETにも対応
   const action = e && e.parameter && e.parameter.action;
   if (action === 'ping') {
-    return jsonOk({ message: 'pong' });
+    return ContentService.createTextOutput(
+      JSON.stringify({ success: true, data: { message: 'pong' } })
+    ).setMimeType(ContentService.MimeType.JSON);
   }
-  return jsonOk({ message: '勤怠管理システム API is running', version: '2.0' });
+  return ContentService.createTextOutput(
+    JSON.stringify({
+      success: true,
+      data: { message: '勤怠管理システム API is running', version: '2.0' }
+    })
+  ).setMimeType(ContentService.MimeType.JSON);
 }
 
 // ===== レスポンスヘルパー（CORS対応） =====
